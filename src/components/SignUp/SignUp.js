@@ -32,16 +32,6 @@ function SignUp() {
       return setError("Passwords do not match");
     }
 
-    // try {
-    //   setError("");
-    //   // setLoading(true);
-    //   await signup(emailRef.current.value, passwordRef.current.value);
-    //   history.push("/home");
-    // } catch {
-    //   setError("Failed to create Account");
-    // }
-    // setLoading(false);
-
     await firebase
       .auth()
       .createUserWithEmailAndPassword(

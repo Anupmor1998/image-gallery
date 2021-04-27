@@ -7,7 +7,7 @@ function Title() {
   return (
     <div className="title">
       <div className="title-block">
-        <h1>Image Gallery</h1>
+        <h1>ImaGram</h1>
         <LogOut />
       </div>
       <h2>Your Images</h2>

@@ -6,7 +6,7 @@ function LoginLayout() {
   return (
     <>
       <div className="heading-block">
-        <h1 className="heading">Image Gallery</h1>
+        <h1 className="heading">ImaGram</h1>
       </div>
       <Container
         className="d-flex align-items-center justify-content-center"
