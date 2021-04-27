@@ -1,8 +1,6 @@
 import React, { useRef, useState } from "react";
 
-import firebase from "firebase/app";
 import "../LogIn/LogIn.css";
-import "firebase/auth";
 
 import {
   Card,
@@ -15,33 +13,37 @@ import {
   CardTitle,
   Alert,
 } from "reactstrap";
-import { Link, useHistory } from "react-router-dom";
+import { auth } from "../../Firebase/FireBaseConfig";
 
 function LogIn() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const [err, setErr] = useState("");
-  // const [loading, setLoading] = useState(false);
-  const history = useHistory();
 
-  const handleSubmit = async (e) => {
+  const handleLogIn = async (e) => {
     e.preventDefault();
-
     setErr("");
-    // setLoading(true);
-    await firebase
-      .auth()
+
+    await auth
       .signInWithEmailAndPassword(
         emailRef.current.value,
         passwordRef.current.value
       )
-      .then(() => {
-        history.push("/home");
-      })
       .catch((error) => {
-        setErr("Invalid Username or Password");
+        setErr(error.message);
       });
-    // setLoading(false);
+  };
+
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    await auth
+      .createUserWithEmailAndPassword(
+        emailRef.current.value,
+        passwordRef.current.value
+      )
+      .catch((error) => {
+        setErr(error.message);
+      });
   };
 
   return (
@@ -52,7 +54,7 @@ function LogIn() {
             Log In
           </CardTitle>
           {err && <Alert color="danger">{err}</Alert>}
-          <Form onSubmit={handleSubmit}>
+          <Form>
             <FormGroup>
               <Label id="email">Email</Label>
               <Input type="email" innerRef={emailRef} required />
@@ -61,16 +63,13 @@ function LogIn() {
               <Label id="password">Password</Label>
               <Input type="password" innerRef={passwordRef} required />
             </FormGroup>
-
-            <Button type="submit" className="w-100">
-              Log In
-            </Button>
+            <div className="log-btn">
+              <Button onClick={handleLogIn}>Log In</Button>
+              <Button onClick={handleSignUp}>Sign Up</Button>
+            </div>
           </Form>
         </CardBody>
       </Card>
-      <div className="w-100 text-center mt-2">
-        Need an account? <Link to="/signup">Sign Up</Link>
-      </div>
     </>
   );
 }

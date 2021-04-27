@@ -1,27 +1,14 @@
-import React, { useState } from "react";
-import firebase from "firebase/app";
-import { useHistory } from "react-router-dom";
+import React from "react";
 import "firebase/auth";
-import { Alert, Button } from "reactstrap";
+import { Button } from "reactstrap";
+import { auth } from "../../Firebase/FireBaseConfig";
 function LogOut() {
-  const [error, setError] = useState("");
-  const history = useHistory();
   const handleLogOut = async () => {
-    setError("");
-    await firebase
-      .auth()
-      .signOut()
-      .then(() => {
-        history.push("/");
-      })
-      .catch(() => {
-        setError("Some error ocurred");
-      });
+    await auth.signOut();
   };
 
   return (
     <div>
-      {error && <Alert color="danger">{error}</Alert>}
       <Button onClick={handleLogOut}>Log Out</Button>
     </div>
   );

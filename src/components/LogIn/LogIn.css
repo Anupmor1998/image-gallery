@@ -6,3 +6,8 @@
   color: var(--color1);
   position: relative;
 }
+
+.log-btn {
+  display: flex;
+  justify-content: space-evenly;
+}
