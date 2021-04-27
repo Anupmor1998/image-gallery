@@ -12,7 +12,7 @@ function App() {
   const [user, loading] = useAuthState(auth);
 
   if (loading) {
-    return <img src={loader} alt="loading..." />;
+    return <img className="loader" src={loader} alt="loading..." />;
   }
 
   return (

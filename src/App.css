@@ -12,3 +12,8 @@ body {
   font-family: "Noto Serif", serif;
   color: var(--secondary);
 }
+.loader {
+  position: absolute;
+  top: 30%;
+  left: 43%;
+}
