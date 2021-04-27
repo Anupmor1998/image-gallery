@@ -1,17 +1,17 @@
 import { useState } from "react";
-import { Container } from "reactstrap";
+
 import "./App.css";
-import ImageGrid from "./components/ImageGrid/ImageGrid";
-import Model from "./components/Model/Model";
-import SignUp from "./components/SignUp/SignUp";
-import Title from "./components/Title/Title";
-import UploadForm from "./components/UploadForm/UploadForm";
+
 import { AuthProvider } from "./Contexts/AuthContext";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import LogIn from "./components/LogIn/LogIn";
+
+import HomeLayout from "./Layouts/HomeLayout";
+import LoginLayout from "./Layouts/LogInLayout";
+import SignUpLayout from "./Layouts/SignUpLayout";
 
 function App() {
   const [selectedImg, setSelectedImg] = useState(null);
+
   return (
     <div className="App">
       <Router>
@@ -20,47 +20,15 @@ function App() {
             <Route
               exact
               path="/home"
-              render={() => (
-                <>
-                  <Title />
-                  <UploadForm />
-                  <ImageGrid setSelectedImg={setSelectedImg} />
-
-                  {selectedImg && (
-                    <Model
-                      selectedImg={selectedImg}
-                      setSelectedImg={setSelectedImg}
-                    />
-                  )}
-                </>
+              component={() => (
+                <HomeLayout
+                  selectedImg={selectedImg}
+                  setSelectedImg={setSelectedImg}
+                />
               )}
             />
-            <Route
-              path="/signup"
-              render={() => (
-                <Container
-                  className="d-flex align-items-center justify-content-center"
-                  style={{ minHeight: "100vh" }}
-                >
-                  <div className="w-100" style={{ maxWidth: "400px" }}>
-                    <SignUp />
-                  </div>
-                </Container>
-              )}
-            />
-            <Route
-              path="/"
-              render={() => (
-                <Container
-                  className="d-flex align-items-center justify-content-center"
-                  style={{ minHeight: "100vh" }}
-                >
-                  <div className="w-100" style={{ maxWidth: "400px" }}>
-                    <LogIn />
-                  </div>
-                </Container>
-              )}
-            />
+            <Route exact path="/signup" component={SignUpLayout} />
+            <Route path="/" component={LoginLayout} />
           </Switch>
         </AuthProvider>
       </Router>

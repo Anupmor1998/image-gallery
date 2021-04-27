@@ -1,5 +1,8 @@
 import React, { useRef, useState } from "react";
-import { useAuth } from "../../Contexts/AuthContext";
+
+import firebase from "firebase/app";
+import "../LogIn/LogIn.css";
+import "firebase/auth";
 
 import {
   Card,
@@ -17,24 +20,28 @@ import { Link, useHistory } from "react-router-dom";
 function LogIn() {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const { login, currentUser } = useAuth();
   const [err, setErr] = useState("");
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      setErr("");
-      setLoading(true);
-      await login(emailRef.current.value, passwordRef.current.value);
-      history.push("/home");
-    } catch {
-      console.log("hello");
-      setErr("Failed to Log In");
-    }
-    setLoading(false);
+    setErr("");
+    // setLoading(true);
+    await firebase
+      .auth()
+      .signInWithEmailAndPassword(
+        emailRef.current.value,
+        passwordRef.current.value
+      )
+      .then(() => {
+        history.push("/home");
+      })
+      .catch((error) => {
+        setErr("Invalid Username or Password");
+      });
+    // setLoading(false);
   };
 
   return (
@@ -44,8 +51,6 @@ function LogIn() {
           <CardTitle tag="h2" className="text-center mb-4">
             Log In
           </CardTitle>
-          {/* {currentUser.email} */}
-          {console.log(err)}
           {err && <Alert color="danger">{err}</Alert>}
           <Form onSubmit={handleSubmit}>
             <FormGroup>
@@ -57,7 +62,7 @@ function LogIn() {
               <Input type="password" innerRef={passwordRef} required />
             </FormGroup>
 
-            <Button disabled={loading} type="submit" className="w-100">
+            <Button type="submit" className="w-100">
               Log In
             </Button>
           </Form>

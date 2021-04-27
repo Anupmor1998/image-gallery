@@ -9,17 +9,17 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
 
-  const signup = (email, password) => {
-    auth.createUserWithEmailAndPassword(email, password);
-  };
+  // const signup = (email, password) => {
+  //   auth.createUserWithEmailAndPassword(email, password);
+  // };
 
-  const login = (email, password) => {
-    auth.signInWithEmailAndPassword(email, password);
-  };
+  // const login = (email, password) => {
+  //   auth.signInWithEmailAndPassword(email, password);
+  // };
 
-  const logout = () => {
-    auth.signOut();
-  };
+  // const logout = () => {
+  //   auth.signOut();
+  // };
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -32,9 +32,9 @@ export function AuthProvider({ children }) {
 
   const value = {
     currentUser,
-    login,
-    logout,
-    signup,
+    // login,
+    // logout,
+    // signup,
   };
 
   return (

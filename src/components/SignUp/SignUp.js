@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { useAuth } from "../../Contexts/AuthContext";
+// import { useAuth } from "../../Contexts/AuthContext";
 import "./SignUp.css";
 import {
   Card,
@@ -13,14 +13,16 @@ import {
   Alert,
 } from "reactstrap";
 import { Link, useHistory } from "react-router-dom";
+import firebase from "firebase/app";
+import "firebase/auth";
 
 function SignUp() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
-  const { signup } = useAuth();
+  // const { signup } = useAuth();
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   const handleSubmit = async (e) => {
@@ -30,15 +32,28 @@ function SignUp() {
       return setError("Passwords do not match");
     }
 
-    try {
-      setError("");
-      setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value);
-      history.push("/home");
-    } catch {
-      setError("Failed to create Account");
-    }
-    setLoading(false);
+    // try {
+    //   setError("");
+    //   // setLoading(true);
+    //   await signup(emailRef.current.value, passwordRef.current.value);
+    //   history.push("/home");
+    // } catch {
+    //   setError("Failed to create Account");
+    // }
+    // setLoading(false);
+
+    await firebase
+      .auth()
+      .createUserWithEmailAndPassword(
+        emailRef.current.value,
+        passwordRef.current.value
+      )
+      .then(() => {
+        history.push("/home");
+      })
+      .catch(() => {
+        setError("User Already exists");
+      });
   };
 
   return (
@@ -63,7 +78,7 @@ function SignUp() {
               <Label id="confirm-password">Confirm Password</Label>
               <Input type="password" innerRef={confirmPasswordRef} required />
             </FormGroup>
-            <Button disabled={loading} type="submit" className="w-100">
+            <Button type="submit" className="w-100">
               Sign Up
             </Button>
           </Form>

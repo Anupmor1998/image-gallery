@@ -5,6 +5,8 @@ import {
   timestamp,
 } from "../Firebase/FireBaseConfig";
 
+import { auth } from "../../src/Firebase/FireBaseConfig";
+
 function useStorage(file) {
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(null);
@@ -12,7 +14,7 @@ function useStorage(file) {
 
   useEffect(() => {
     let storageRef = imageStorage.ref(file.name);
-    let collectionRef = imageFirestore.collection("images");
+    let collectionRef = imageFirestore.collection(`/${auth.currentUser.uid}`);
 
     storageRef.put(file).on(
       "state_changed",

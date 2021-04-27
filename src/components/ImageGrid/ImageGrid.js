@@ -2,8 +2,9 @@ import React from "react";
 import useFirestore from "../../hooks/useFirestore";
 import { motion } from "framer-motion";
 import "./ImageGrid.css";
+import { auth } from "../../Firebase/FireBaseConfig";
 function ImageGrid({ setSelectedImg }) {
-  const { docs } = useFirestore("images");
+  const { docs } = useFirestore(`/${auth.currentUser.uid}`);
   console.log(docs);
   return (
     <div className="img-grid">
