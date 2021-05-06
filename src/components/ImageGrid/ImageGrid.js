@@ -5,7 +5,6 @@ import "./ImageGrid.css";
 import { auth } from "../../Firebase/FireBaseConfig";
 function ImageGrid({ setSelectedImg }) {
   const { docs } = useFirestore(`/${auth.currentUser.uid}`);
-  console.log(docs);
   return (
     <div className="img-grid">
       {docs &&

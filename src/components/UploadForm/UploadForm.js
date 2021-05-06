@@ -18,7 +18,6 @@ function UploadForm() {
       setError("Please select a valid image file (png or jpeg)");
     }
   };
-  console.log(file);
   return (
     <form>
       <label className="label">
