@@ -46,6 +46,12 @@ function LogIn() {
       });
   };
 
+  const handleGuest = async (e) => {
+    e.preventDefault();
+
+    await auth.signInWithEmailAndPassword("abc@gmail.com", "123456");
+  };
+
   return (
     <>
       <Card>
@@ -66,6 +72,7 @@ function LogIn() {
             <div className="log-btn">
               <Button onClick={handleLogIn}>Log In</Button>
               <Button onClick={handleSignUp}>Sign Up</Button>
+              <Button onClick={handleGuest}>Guest Login</Button>
             </div>
           </Form>
         </CardBody>

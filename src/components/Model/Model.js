@@ -1,12 +1,30 @@
 import React from "react";
 import "./Model.css";
 import { motion } from "framer-motion";
+import { imageFirestore, auth } from "../../Firebase/FireBaseConfig";
+import "toastify-js/src/toastify.css";
+import Toastify from "toastify-js";
+import { FaTrashAlt } from "react-icons/fa";
 
 function Model({ selectedImg, setSelectedImg }) {
+  const collectionRef = imageFirestore
+    .collection(`/${auth.currentUser.uid}`)
+    .doc(selectedImg.id);
+
   const handleClick = (e) => {
     if (e.target.classList.contains("backdrop")) {
       setSelectedImg(null);
     }
+  };
+
+  const handleDelete = async () => {
+    await collectionRef.delete();
+    setSelectedImg(null);
+    Toastify({
+      text: "Image Deleted Successfully",
+      duration: 3000,
+      style: { background: "green" },
+    }).showToast();
   };
   return (
     <motion.div
@@ -16,11 +34,16 @@ function Model({ selectedImg, setSelectedImg }) {
       animate={{ opacity: 1 }}
     >
       <motion.img
-        src={selectedImg}
+        src={selectedImg.url}
         alt="enlarged"
         initial={{ y: "-100vh" }}
         animate={{ y: 0 }}
       />
+      {collectionRef ? (
+        <FaTrashAlt className="delete-icon" onClick={handleDelete} />
+      ) : (
+        ""
+      )}
     </motion.div>
   );
 }

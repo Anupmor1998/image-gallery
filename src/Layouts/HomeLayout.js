@@ -6,7 +6,7 @@ import UploadForm from "../components/UploadForm/UploadForm";
 
 function HomeLayout({ selectedImg, setSelectedImg }) {
   return (
-    <>
+    <div className="home">
       <Title />
       <UploadForm />
       <ImageGrid setSelectedImg={setSelectedImg} />
@@ -14,7 +14,7 @@ function HomeLayout({ selectedImg, setSelectedImg }) {
       {selectedImg && (
         <Model selectedImg={selectedImg} setSelectedImg={setSelectedImg} />
       )}
-    </>
+    </div>
   );
 }
 

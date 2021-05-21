@@ -11,12 +11,14 @@
   padding: 50% 0;
   position: relative;
   opacity: 0.8;
+  z-index: 0;
+  cursor: pointer;
 }
 
 .img-wrap img {
   min-width: 100%;
   min-height: 100%;
-  max-width: 150%;
+  max-width: 100%;
   position: absolute;
   top: 0;
   left: 0;

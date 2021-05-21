@@ -5,6 +5,7 @@ import "./ImageGrid.css";
 import { auth } from "../../Firebase/FireBaseConfig";
 function ImageGrid({ setSelectedImg }) {
   const { docs } = useFirestore(`/${auth.currentUser.uid}`);
+
   return (
     <div className="img-grid">
       {docs &&
@@ -14,7 +15,7 @@ function ImageGrid({ setSelectedImg }) {
             key={doc.id}
             whileHover={{ opacity: 1 }}
             layout
-            onClick={() => setSelectedImg(doc.url)}
+            onClick={() => setSelectedImg(doc)}
           >
             <motion.img
               src={doc.url}

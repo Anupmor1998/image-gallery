@@ -6,6 +6,7 @@ import HomeLayout from "./Layouts/HomeLayout";
 import LoginLayout from "./Layouts/LogInLayout";
 import { auth } from "./Firebase/FireBaseConfig";
 import loader from "./images/loading.svg";
+import GithubRibbons from "./components/GithubRibbons/GithubRibbons";
 
 function App() {
   const [selectedImg, setSelectedImg] = useState(null);
@@ -16,13 +17,19 @@ function App() {
   }
 
   return (
-    <div className="App">
-      {user ? (
-        <HomeLayout selectedImg={selectedImg} setSelectedImg={setSelectedImg} />
-      ) : (
-        <LoginLayout />
-      )}
-    </div>
+    <>
+      <GithubRibbons />
+      <div className="App">
+        {user ? (
+          <HomeLayout
+            selectedImg={selectedImg}
+            setSelectedImg={setSelectedImg}
+          />
+        ) : (
+          <LoginLayout />
+        )}
+      </div>
+    </>
   );
 }
 

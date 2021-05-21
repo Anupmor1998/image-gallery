@@ -3,10 +3,12 @@
   --color2: #4e4e4e;
   --error: #ff4a4a;
 }
-
+.home {
+  padding-top: 1rem !important;
+}
 .App {
   max-width: 960px;
-  margin: 1rem auto;
+  margin: 0 auto;
 }
 body {
   font-family: "Noto Serif", serif;

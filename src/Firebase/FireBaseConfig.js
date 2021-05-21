@@ -23,6 +23,6 @@ if (!firebase.apps.length) {
 const imageStorage = firebase.storage();
 const imageFirestore = firebase.firestore();
 const auth = firebase.auth();
-const timestamp = firebase.firestore.FieldValue.serverTimestamp;
+const timestamp = firebase.firestore.FieldValue.serverTimestamp();
 
 export { imageStorage, imageFirestore, timestamp, auth };
