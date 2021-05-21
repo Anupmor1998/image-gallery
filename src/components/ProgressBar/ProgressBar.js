@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import useStorage from "../../hooks/useStorage";
 import "./ProgressBar.css";
 import { motion } from "framer-motion";
+import "toastify-js/src/toastify.css";
+import Toastify from "toastify-js";
 
 function ProgressBar({ file, setFile }) {
   const { url, progress } = useStorage(file);
@@ -9,6 +11,11 @@ function ProgressBar({ file, setFile }) {
   useEffect(() => {
     if (url) {
       setFile(null);
+      Toastify({
+        text: "Image Uploaded Successfully",
+        duration: 3000,
+        backgroundColor: "green",
+      }).showToast();
     }
   }, [url, setFile]);
   return (

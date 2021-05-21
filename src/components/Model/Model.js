@@ -23,7 +23,7 @@ function Model({ selectedImg, setSelectedImg }) {
     Toastify({
       text: "Image Deleted Successfully",
       duration: 3000,
-      style: { background: "green" },
+      backgroundColor: "green",
     }).showToast();
   };
   return (
